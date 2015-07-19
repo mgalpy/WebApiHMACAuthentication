@@ -20,7 +20,7 @@ namespace HMACAuthentication.WebApi.Filters
     {
         private static Dictionary<string, string> allowedApps = new Dictionary<string, string>();
         private readonly UInt64 requestMaxAgeInSeconds = 300;  //5 mins
-        private readonly string authenticationScheme = "amx";
+        private readonly string authenticationScheme = "HMAC-SHA256";
 
         public HMACAuthenticationAttribute()
         {
@@ -130,6 +130,7 @@ namespace HMACAuthentication.WebApi.Filters
 
             byte[] signature = Encoding.UTF8.GetBytes(data);
 
+            //HMACSHA1 - less secure? 30% faster?
             using (HMACSHA256 hmac = new HMACSHA256(secretKeyBytes))
             {
                 byte[] signatureBytes = hmac.ComputeHash(signature);
@@ -179,7 +180,7 @@ namespace HMACAuthentication.WebApi.Filters
 
     public class ResultWithChallenge : IHttpActionResult
     {
-        private readonly string authenticationScheme = "amx";
+        private readonly string authenticationScheme = "HMAC-SHA256";
         private readonly IHttpActionResult next;
 
         public ResultWithChallenge(IHttpActionResult next)

@@ -55,7 +55,7 @@ namespace HMACAuthentication.Client
 
         public class CustomDelegatingHandler : DelegatingHandler
         {
-            //Obtained from the server earlier, APIKey MUST be stored securly and in App.Config
+            //Should be obtained from the server!, APIKey MUST be stored securly and in App.Config
             private string APPId = "4d53bce03ec34c0a911182d4c228ee6c";
             private string APIKey = "A93reRTUJHsCuQSHR+L3GxqOJyDmQpCgps102ciuabc=";
 
@@ -94,12 +94,13 @@ namespace HMACAuthentication.Client
 
                 byte[] signature = Encoding.UTF8.GetBytes(signatureRawData);
 
+                //HMACSHA1 - less secure? 30% faster?
                 using (HMACSHA256 hmac = new HMACSHA256(secretKeyByteArray))
                 {
                     byte[] signatureBytes = hmac.ComputeHash(signature);
                     string requestSignatureBase64String = Convert.ToBase64String(signatureBytes);
-                    //Setting the values in the Authorization header using custom scheme (amx)
-                    request.Headers.Authorization = new AuthenticationHeaderValue("amx", string.Format("{0}:{1}:{2}:{3}", APPId, requestSignatureBase64String, nonce, requestTimeStamp));
+                    //Setting the values in the Authorization header using custom scheme (HMAC-SHA256)
+                    request.Headers.Authorization = new AuthenticationHeaderValue("HMAC-SHA256", string.Format("{0}:{1}:{2}:{3}", APPId, requestSignatureBase64String, nonce, requestTimeStamp));
                 }
 
                 response = await base.SendAsync(request, cancellationToken);
