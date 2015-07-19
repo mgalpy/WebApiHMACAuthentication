@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMACAuthentication.Client", "HMACAuthentication.Client\HMACAuthentication.Client.csproj", "{B9CECCA4-C107-41DE-BB3D-CBE7E5561059}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMACAuthentication.WebApi", "HMACAuthentication.WebApi\HMACAuthentication.WebApi.csproj", "{C34ED7DB-C840-42AA-889F-D2F64DD2D0A8}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HMACAuthentication.Share", "HMACAuthentication.Share\HMACAuthentication.Share.shproj", "{08CA4546-345A-443B-BFCD-3AA4A8B188D6}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		HMACAuthentication.Share\HMACAuthentication.Share.projitems*{08ca4546-345a-443b-bfcd-3aa4a8b188d6}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

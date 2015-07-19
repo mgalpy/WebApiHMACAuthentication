@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HMACAuthentication.Share.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -30,7 +31,11 @@ namespace HMACAuthentication.Client
 
             var order = new Order { OrderID = 10248, CustomerName = "Taiseer Joudeh", ShipperCity = "Amman", IsShipped = true };
 
+            //HttpResponseMessage response = await client.GetAsync(apiBaseAddress + "api/orders,");
+
             HttpResponseMessage response = await client.PostAsJsonAsync(apiBaseAddress + "api/orders", order);
+
+            //HttpResponseMessage response = await client.PostAsXmlAsync(apiBaseAddress + "api/orders", order);
 
             if (response.IsSuccessStatusCode)
             {
