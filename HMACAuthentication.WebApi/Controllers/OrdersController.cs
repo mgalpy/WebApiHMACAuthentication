@@ -21,7 +21,7 @@ namespace HMACAuthentication.WebApi.Controllers
 
             var Name = ClaimsPrincipal.Current.Identity.Name;
 
-            return Ok(Order.CreateOrders());
+            return Ok(OrderExtention.CreateOrders());
         }
 
         [Route("")]
@@ -34,15 +34,8 @@ namespace HMACAuthentication.WebApi.Controllers
 
     #region Helpers
 
-    public class Order : IOrder
+    public partial class OrderExtention : Order
     {
-
-        public int OrderID { get; set; }
-        public string CustomerName { get; set; }
-        public string ShipperCity { get; set; }
-        public Boolean IsShipped { get; set; }
-
-        
         public static List<Order> CreateOrders()
         {
             List<Order> OrderList = new List<Order> 

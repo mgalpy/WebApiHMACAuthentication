@@ -1,11 +1,10 @@
-﻿using HMACAuthentication.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HMACAuthentication.Client
+namespace HMACAuthentication.Shared
 {
-    public class Order : IOrder
+    public partial class Order : IOrder
     {
         public int OrderID { get; set; }
         public string CustomerName { get; set; }
