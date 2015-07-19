@@ -9,6 +9,6 @@
     <Import_RootNamespace>HMACAuthentication.Share</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Model\Order.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\IOrder.cs" />
   </ItemGroup>
 </Project>

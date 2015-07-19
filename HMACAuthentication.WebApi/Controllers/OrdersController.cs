@@ -1,4 +1,4 @@
-﻿using HMACAuthentication.Share.Model;
+﻿using HMACAuthentication.Shared;
 using HMACAuthentication.WebApi.Filters;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace HMACAuthentication.WebApi.Controllers
 
             var Name = ClaimsPrincipal.Current.Identity.Name;
 
-            return Ok(OrderManager.CreateOrders());
+            return Ok(Order.CreateOrders());
         }
 
         [Route("")]
@@ -34,9 +34,15 @@ namespace HMACAuthentication.WebApi.Controllers
 
     #region Helpers
 
-    public class OrderManager
+    public class Order : IOrder
     {
 
+        public int OrderID { get; set; }
+        public string CustomerName { get; set; }
+        public string ShipperCity { get; set; }
+        public Boolean IsShipped { get; set; }
+
+        
         public static List<Order> CreateOrders()
         {
             List<Order> OrderList = new List<Order> 
