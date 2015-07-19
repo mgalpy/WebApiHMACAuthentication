@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HMACAuthentication.Client;
 
 namespace HMACAuthentication.Tests
 {
@@ -7,7 +8,7 @@ namespace HMACAuthentication.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetAllOrders_ShouldReturnAllOrders()
         {
         }
     }

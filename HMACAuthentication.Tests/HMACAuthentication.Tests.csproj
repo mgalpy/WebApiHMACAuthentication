@@ -53,6 +53,12 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HMACAuthentication.Client\HMACAuthentication.Client.csproj">
+      <Project>{b9cecca4-c107-41de-bb3d-cbe7e5561059}</Project>
+      <Name>HMACAuthentication.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
