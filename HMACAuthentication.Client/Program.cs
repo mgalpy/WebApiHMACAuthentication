@@ -13,15 +13,26 @@ namespace HMACAuthentication.Client
 {
     class Program
     {
+        static double totalSeconds;
+
         static void Main(string[] args)
         {
-            RunAsync().Wait();
+            for (int i =0; i <= 1000; i++)
+            {
+                    RunAsync().Wait();
+            }
+            Console.WriteLine("totalSeconds: " + totalSeconds);
+            Console.ReadLine();
+
         }
 
         static async Task RunAsync()
         {
+            DateTime epochStartAPIRequest = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan timeSpanAPIRequest = DateTime.UtcNow - epochStartAPIRequest;
+            double start = timeSpanAPIRequest.TotalSeconds;
 
-            Console.WriteLine("Calling the back-end API");
+            Console.WriteLine("Calling the back-end API : " + start);
 
             string apiBaseAddress = "http://localhost:43326/";
 
@@ -37,10 +48,25 @@ namespace HMACAuthentication.Client
             //client.DefaultRequestHeaders.Add("accept", "text/xml");
 
             //HttpResponseMessage response = await client.PostAsXmlAsync(apiBaseAddress + "api/orders", order);
-            HttpResponseMessage response = await client.PostAsJsonAsync(apiBaseAddress + "api/orders", order);
+            HttpResponseMessage response = await client.PostAsJsonAsync(apiBaseAddress + "api/orders", new List<Order> 
+            {
+                new Order {OrderID = 10248, CustomerName = "Taiseer Joudeh", ShipperCity = "Amman", IsShipped = true },
+                new Order {OrderID = 10249, CustomerName = "Ahmad Hasan", ShipperCity = "Dubai", IsShipped = false},
+                new Order {OrderID = 10250,CustomerName = "Tamer Yaser", ShipperCity = "Jeddah", IsShipped = false },
+                new Order {OrderID = 10251,CustomerName = "Lina Majed", ShipperCity = "Abu Dhabi", IsShipped = false},
+                new Order {OrderID = 10252,CustomerName = "Yasmeen Rami", ShipperCity = "Kuwait", IsShipped = true}
+            });
 
             if (response.IsSuccessStatusCode)
             {
+                DateTime epochStartAPIResponse = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan timeSpanAPIResonse = DateTime.UtcNow - epochStartAPIResponse;
+                double end = timeSpanAPIResonse.TotalSeconds;
+                totalSeconds = totalSeconds + (end - start);
+
+                Console.WriteLine("Recieved response from back-end API : " + end);
+                Console.WriteLine("Recieved response from back-end API TOTAL TIME IN SECONDS: " + (end - start));
+
                 string responseString = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(responseString);
                 Console.WriteLine("HTTP Status: {0}, Reason {1}. Press ENTER to exit", response.StatusCode, response.ReasonPhrase);
@@ -50,7 +76,7 @@ namespace HMACAuthentication.Client
                 Console.WriteLine("Failed to call the API. HTTP Status: {0}, Reason {1}", response.StatusCode, response.ReasonPhrase);
             }
 
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         public class CustomDelegatingHandler : DelegatingHandler

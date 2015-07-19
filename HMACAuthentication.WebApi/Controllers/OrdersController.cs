@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace HMACAuthentication.WebApi.Controllers
 {
-    [HMACAuthentication]
+    //[HMACAuthentication]
     [RoutePrefix("api/Orders")]
     public class OrdersController : ApiController
     {
@@ -25,7 +25,7 @@ namespace HMACAuthentication.WebApi.Controllers
         }
 
         [Route("")]
-        public IHttpActionResult Post(Order order)
+        public IHttpActionResult Post(List<Order> order)
         {
             return Ok(order);
         }

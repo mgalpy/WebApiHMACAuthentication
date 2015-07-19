@@ -26,6 +26,7 @@ namespace HMACAuthentication.WebApi.Filters
         {
             if (allowedApps.Count == 0)
             {
+                //store values outside of web root or in config file
                 allowedApps.Add("4d53bce03ec34c0a911182d4c228ee6c", "A93reRTUJHsCuQSHR+L3GxqOJyDmQpCgps102ciuabc=");
             }
         }
