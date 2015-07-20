@@ -11,29 +11,17 @@ using System.Threading.Tasks;
 
 namespace HMACAuthentication.Client
 {
-    class Program
+    public class Program
     {
-        static double totalSeconds;
+
 
         static void Main(string[] args)
         {
-            for (int i =0; i <= 1000; i++)
-            {
-                    RunAsync().Wait();
-            }
-            Console.WriteLine("totalSeconds: " + totalSeconds);
-            Console.ReadLine();
-
+             RunAsync().Wait();
         }
 
-        static async Task RunAsync()
+        public static async Task RunAsync()
         {
-            DateTime epochStartAPIRequest = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan timeSpanAPIRequest = DateTime.UtcNow - epochStartAPIRequest;
-            double start = timeSpanAPIRequest.TotalSeconds;
-
-            Console.WriteLine("Calling the back-end API : " + start);
-
             string apiBaseAddress = "http://localhost:43326/";
 
             CustomDelegatingHandler customDelegatingHandler = new CustomDelegatingHandler();
@@ -59,21 +47,15 @@ namespace HMACAuthentication.Client
 
             if (response.IsSuccessStatusCode)
             {
-                DateTime epochStartAPIResponse = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
-                TimeSpan timeSpanAPIResonse = DateTime.UtcNow - epochStartAPIResponse;
-                double end = timeSpanAPIResonse.TotalSeconds;
-                totalSeconds = totalSeconds + (end - start);
-
-                Console.WriteLine("Recieved response from back-end API : " + end);
-                Console.WriteLine("Recieved response from back-end API TOTAL TIME IN SECONDS: " + (end - start));
+               // Console.WriteLine("Recieved response from back-end API TOTAL TIME IN SECONDS: " + (end - start));
 
                 string responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseString);
-                Console.WriteLine("HTTP Status: {0}, Reason {1}. Press ENTER to exit", response.StatusCode, response.ReasonPhrase);
+                //Console.WriteLine(responseString);
+                //Console.WriteLine("HTTP Status: {0}, Reason {1}. Press ENTER to exit", response.StatusCode, response.ReasonPhrase);
             }
             else
             {
-                Console.WriteLine("Failed to call the API. HTTP Status: {0}, Reason {1}", response.StatusCode, response.ReasonPhrase);
+                //Console.WriteLine("Failed to call the API. HTTP Status: {0}, Reason {1}", response.StatusCode, response.ReasonPhrase);
             }
 
             //Console.ReadLine();
